@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ConvertionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ConvertionController::class, 'index'])->name('welcome');
+Route::post('/', [ConvertionController::class, 'converter'])->name('converter');
