@@ -22,8 +22,17 @@ class ConvertionController extends Controller
 
         if(!is_null($convertion))
             $amount_converter = $request->amount * $convertion->rate;
-        else
-            $amount_converter = "Nous ne pouvons effectuer la convertion";
+        else {
+            $convertion = Convertion::where([
+                ['device_id_1', $request->device_2],
+                ['device_id_2', $request->device_1],
+            ])->first();
+
+            if(!is_null($convertion))
+                $amount_converter = $request->amount / $convertion->rate;
+            else
+                $amount_converter = "Nous ne pouvons effectuer la convertion";
+        }
 
         $devices = Device::all();
 
